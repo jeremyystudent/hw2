@@ -102,6 +102,7 @@ void MyDataStore::buyCart(User* usr){
             usr->deductAmount(price);
             it->second[i]->subtractQty(1);
             it->second.erase(std::next(it->second.begin(),i));
+            i--;
         }
     }
 }

@@ -118,7 +118,10 @@ int main(int argc, char* argv[])
                 if(usr != NULL){
                     std::set<Product*> cart = ds.getCart(usr);
                     std::set<Product*>::iterator it;
+                    int counter = 1;
                     for(it = cart.begin();it != cart.end();++it){
+                        cout << "Item " << counter << endl;
+                        counter++;
                         cout << (*it)->displayString() << endl;
                     }
                 }else{

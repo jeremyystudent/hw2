@@ -17,7 +17,10 @@ std::string Clothing::getSize() const{return size_;}
 std::string Clothing::getBrand() const{return brand_;}
 
 std::set<std::string> Clothing::keywords() const{
-    return parseStringToWords(brand_);
+    std::set<std::string> result = parseStringToWords(name_);
+    std::set<std::string> brand = parseStringToWords(brand_);
+    result = setUnion<std::string>(result, brand);
+    return result;
 }
 std::string Clothing::displayString() const{
     stringstream ss;

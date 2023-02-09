@@ -71,7 +71,7 @@ bool DBParser::parse(string db_filename, DataStore& ds)
             if((line.size() > 3) && line[0] == '<' && line[1] == '/' && line[line.size()-1] == '>') {
                 map<string, SectionParser*>::iterator it = parsers_.find(sectionName);
                 if(it != parsers_.end()) {
-                    error_ = it->second->parse(sectionText, ds, startLineNo, errorMsg_);
+                    error_ = it->second->parse(sectionText, ds, startLineNo, errorMsg_);    //traced error to here, sectionText is <incomplete type>
                     if(error_) {
                         lineno_ = startLineNo;
                     }

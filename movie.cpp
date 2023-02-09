@@ -17,7 +17,10 @@ std::string Movie::getGenre() const{return genre_;}
 std::string Movie::getRating() const{return rating_;}
 
 std::set<std::string> Movie::keywords() const{
-    return parseStringToWords(genre_);
+    std::set<std::string> result = parseStringToWords(name_);
+    std::set<std::string> genre = parseStringToWords(genre_);
+    result = setUnion<std::string>(result ,genre);
+    return result;
 
 }
 std::string Movie::displayString() const{

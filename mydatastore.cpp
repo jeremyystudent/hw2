@@ -24,13 +24,15 @@ void MyDataStore::addProduct(Product* p){
         }else{
             std::set<Product*> temp;
             temp.insert(p);
-            keywordMap.insert(std::make_pair(it2->first, temp));
+            keywordMap.insert(std::make_pair(*it, temp));
         }
     }
 }
 
 void MyDataStore::addUser(User* u){
     myUsers.insert(u);
+    std::set<Product*> temp;
+    myInventory.insert(std::make_pair(u, temp));
 }
 
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type){
@@ -75,4 +77,39 @@ void MyDataStore::dump(std::ostream& ofile){
         (*it)->dump(ofile);
     }
     ofile << "</users>" << endl;
+}
+
+void MyDataStore::putToCart(User* usr, Product* item){
+    std::map<User*, std::set<Product*>>::iterator it;
+    it = myInventory.find(usr);
+    it->second.insert(item);
+}
+void MyDataStore::buyCart(User* usr){
+    std::map<User*, std::set<Product*>>::iterator it;
+    it = myInventory.find(usr);
+    std::set<Product*>::iterator it2;
+    for(it2 = it->second.begin();it2 != it->second.end();){
+        double price = (*it2)->getPrice();
+        int qty = (*it2)->getQty();
+        if(price <= usr->getBalance() && qty >= 1){
+            usr->deductAmount(price);
+            (*it2)->subtractQty(1);
+            it->second.erase(it2++);
+        }else{
+            ++it2;
+        }
+    }
+}
+std::set<Product*> MyDataStore::getCart(User* usr){
+    std::map<User*, std::set<Product*>>::iterator it;
+    it = myInventory.find(usr);
+    std::set<Product*> cart = it->second;
+    return cart;
+}
+User* MyDataStore::findUsr(string username){
+    std::set<User*>::iterator it;
+    for(it = myUsers.begin(); it != myUsers.end();++it){
+        if((*it)->getName() == username){return *it;}
+    }
+    return NULL;
 }

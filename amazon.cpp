@@ -100,11 +100,41 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
-
-
+            else if ( cmd == "ADD") {
+                string username;
+                int hitNo;
+                ss >> username >> hitNo;
+                User* usr = ds.findUsr(username);
+                if(usr != NULL && hitNo <= hits.size()){
+                    ds.putToCart(usr, hits[hitNo-1]);
+                }else{
+                    cout << "Invalid request" << endl;
+                }
+            }
+            else if ( cmd == "VIEWCART") {
+                string username;
+                ss >> username;
+                User* usr = ds.findUsr(username);
+                if(usr != NULL){
+                    std::set<Product*> cart = ds.getCart(usr);
+                    std::set<Product*>::iterator it;
+                    for(it = cart.begin();it != cart.end();++it){
+                        cout << (*it)->displayString() << endl;
+                    }
+                }else{
+                    cout << "Invalid username" << endl;
+                }
+            }
+            else if ( cmd == "BUYCART") {
+                string username;
+                ss >> username;
+                User* usr = ds.findUsr(username);
+                if(usr != NULL){
+                    ds.buyCart(usr);
+                }else{
+                    cout << "Invalid username" << endl;
+                }
+            }
             else {
                 cout << "Unknown command" << endl;
             }

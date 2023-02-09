@@ -30,10 +30,17 @@ public:
      * Reproduce the database file from the current Products and User values
      */
     void dump(std::ostream& ofile);
+
+    void putToCart(User* usr, Product* item);
+    void buyCart(User* usr);
+    std::set<Product*> getCart(User* usr);
+    User* findUsr(std::string username);
+
 private:
     std::set<Product*> myProducts;
     std::set<User*> myUsers;
     std::map<std::string, std::set<Product*>> keywordMap;
+    std::map<User*, std::set<Product*>> myInventory;
 };
 
 #endif

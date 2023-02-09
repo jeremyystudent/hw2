@@ -17,7 +17,9 @@ std::string Book::getISBN() const{return isbn_;}
 std::string Book::getAuthor() const{return author_;}
 
 std::set<std::string> Book::keywords() const{
-    std::set<std::string> result = parseStringToWords(author_);
+    std::set<std::string> result = parseStringToWords(name_);
+    std::set<std::string> authors = parseStringToWords(author_);
+    result = setUnion<std::string>(result, authors);
     result.insert(isbn_);
     return result;
 }

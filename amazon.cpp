@@ -116,8 +116,8 @@ int main(int argc, char* argv[])
                 ss >> username;
                 User* usr = ds.findUsr(username);
                 if(usr != NULL){
-                    std::set<Product*> cart = ds.getCart(usr);
-                    std::set<Product*>::iterator it;
+                    std::vector<Product*> cart = ds.getCart(usr);
+                    std::vector<Product*>::iterator it;
                     int counter = 1;
                     for(it = cart.begin();it != cart.end();++it){
                         cout << "Item " << counter << endl;

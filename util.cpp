@@ -21,13 +21,14 @@ std::set<std::string> parseStringToWords(string rawWords)
     for(unsigned int i = 0;i<rawWords.size();i++){
         if(rawWords[i] < 97 || rawWords[i] > 122){
             std::string str = rawWords.substr(start,i-start);
-            if(str.size()>=2){result.insert(str);}
+            if(str.size()>=2){result.insert(trim(str));}
             start = i+1;
             i++;
         }
     }
     if(rawWords.size() - start >= 2 ){
-        result.insert(rawWords.substr(start));
+        std::string temp = rawWords.substr(start);
+        result.insert(trim(temp));
     }
     return result;
 }

@@ -81,8 +81,8 @@ void MyDataStore::dump(std::ostream& ofile){
     ofile << "</products>" << "\n";
     ofile << "<users>" << "\n";
     typename std::set<User*>::iterator it2;
-    for(it2 = myUsers.begin();it2 != myUsers.end();++it){
-        (*it)->dump(ofile);
+    for(it2 = myUsers.begin();it2 != myUsers.end();++it2){
+        (*it2)->dump(ofile);
     }
     ofile << "</users>" << endl;
 }

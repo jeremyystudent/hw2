@@ -9,11 +9,11 @@ using namespace std;
 MyDataStore::~MyDataStore(){ 
     std::set<Product*>::iterator it;
     for(it = myProducts.begin();it != myProducts.end();it++){
-        myProducts.erase(it);
+        delete (*it);
     }
     std::set<User*>::iterator it2;
     for(it2 = myUsers.begin();it2 != myUsers.end();it2++){
-        myUsers.erase(it2);
+        delete (*it2);
     }
     myProducts.clear();
     myUsers.clear();
